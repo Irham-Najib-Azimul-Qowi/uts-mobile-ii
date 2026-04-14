@@ -59,7 +59,10 @@ import com.example.unscramble.R
 import com.example.unscramble.ui.theme.UnscrambleTheme
 
 @Composable
-fun GameScreen(gameViewModel: GameViewModel = viewModel()) {
+fun GameScreen(
+    gameViewModel: GameViewModel,
+    onNavigateToResult: () -> Unit,
+) {
     val gameUiState by gameViewModel.uiState.collectAsState()
     val mediumPadding = dimensionResource(R.dimen.padding_medium)
 
@@ -113,6 +116,17 @@ fun GameScreen(gameViewModel: GameViewModel = viewModel()) {
             ) {
                 Text(
                     text = stringResource(R.string.skip),
+                    fontSize = 16.sp
+                )
+            }
+
+            // Tombol baru untuk melihat riwayat kata yang benar
+            TextButton(
+                onClick = onNavigateToResult,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Lihat Kata Benar",
                     fontSize = 16.sp
                 )
             }
@@ -250,10 +264,15 @@ private fun FinalScoreDialog(
     )
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun GameScreenPreview() {
     UnscrambleTheme {
-        GameScreen()
+        GameScreen(
+            gameViewModel = viewModel(),
+            onNavigateToResult = {}
+        )
     }
 }
+*/
